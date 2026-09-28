@@ -1,0 +1,236 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{graphicx,fancyhdr,}
+\usepackage{mathtools}
+%\usepackage[left=1cm,right=1cm,top=1.5cm,bottom=1.5cm]{geometry}
+\usepackage{amsfonts,amsmath,amssymb}
+\usepackage{amsthm}
+\usepackage{pstricks-add, pspicture} % pour les axces
+\usepackage{thmtools}
+\usepackage{xcolor}
+\usepackage{nameref}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{hyperref, fancybox, microtype,pifont,array, caption, bbding, multicol, longtable, indentfirst, tabularx, ,setspace, fourier, courier, color, multirow, lscape,lipsum,textcomp}
+\usepackage{tikz}
+\usepackage{systeme}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\pagestyle{empty}
+
+
+%<<<<<<<WARNING>>>>>>>
+% PGF/Tikz doesn't support hatch filling very well
+% Use PStricks for a perfect hatching export
+
+\usetikzlibrary[patterns]
+
+\usepackage[normalem]{ulem} % pour hachurer
+\usepackage{colortbl} %Pour hachurer une case d'un tableau 
+\usepackage[tikz]{bclogo}
+\usepackage[most]{tcolorbox} 
+\usepackage{longtable}
+%\usepackage{background} %filigrane
+\usepackage{draftwatermark} %filigrane
+\usepackage{fancybox,fancyhdr}%encadrement et les titres des en-tete
+%\usepackage{multicol, multirow}%fusion de colone et ligne
+\usepackage[np]{numprint}%pour écrire correctement les nombres à virgules sans espaces entre la virgule et le nombre tout en utilisant le commande \np{}
+%\usepackage{bookman, fourier}
+
+%\setlength{\columnseprule}{0.5pt}
+\setlength{\columnsep}{3pt}
+\usepackage{graphicx}
+\usepackage[left=1.00cm, right=1.00cm, top=1.5cm, bottom=1.5cm]{geometry}
+\newcounter{exo}
+\setcounter{exo}{0}
+\newcommand{\exo}[1]{
+\stepcounter{exo} { \textbf{\underline{Exercice de maison \No}\arabic{exo}} : \textbf{#1} \newline }}
+%donnez une fraction aleatoire à simplifier debut:
+\newcounter{Num} \newcounter{Den}
+\newcounter{Coef}
+\newcommand{\FractAleat}{%
+	\reinitrand[first=1,last=10,counter=Num]\rand
+	\reinitrand[first=2,last=10,counter=Den]\rand
+	\reinitrand[first=2,last=12,counter=Coef]\rand
+	\setcounter{Num}{\value{Num}*\value{Coef}}
+	\setcounter{Den}{\value{Den}*\value{Coef}}
+	$\dfrac{\theNum}{\theDen}$}
+%fin
+%les activités et les consignes debut
+\newcounter{q}
+\setcounter{q}{0}
+\newcounter{qq}
+\newcommand{\act}[1]
+{ 
+		 \setcounter{qq}{0}
+	\addtocounter{q}{1} \doublebox {\textbf{Activité} \theq.}\space \textbf{{#1}}\\
+ }
+\newcommand{\conAct}[1]{
+	\addtocounter{qq}{1} \ovalbox{\textbf{Consignes	\theq.\space\theqq.}}  \textbf{{#1}} \\
+}
+\newcommand{\resul}{ \begin{center}
+		\rule{2cm}{1mm} 
+		\shadowbox{Résolutions}
+  \rule{2cm}{1mm}
+\end{center}}
+%definition et autre 
+\newcommand{\defs}[1]{\begin{bclogo}[couleur=green!20,arrondi=5pt]
+		{\textbf{Définition}}
+		#1
+	\end{bclogo} 	 
+}
+%nb ou vocabulaire 
+\newcommand{\nbVo}[2]{\begin{bclogo}[couleur = lightgray!15, couleur =red!15, arrondi = 0.3, ombre = true, epOmbre =0.25, couleurOmbre= lightgray!90, logo=\bcrecyclage, epBarre=3  ]{\textbf{#1}}
+		#2
+\end{bclogo}}
+%Propriété
+\newcommand{\propr}[1]{  \begin{bclogo}[couleur = lightgray!15, arrondi = 0.3, ombre = true, epOmbre =0.25,  nobreak=false, couleurOmbre= lightgray!90, logo=\bcrecyclage, epBarre=3 ]{Propriété} #1
+\end{bclogo}}
+%suitepro
+\newcommand{\prosuit}[1]{  \begin{bclogo}[couleur = lightgray!15, arrondi = 0.3, ombre = true, epOmbre =0.25, couleurOmbre= lightgray!90, logo=\bcrecyclage,  epBarre=3 ]{   } #1
+\end{bclogo}}
+%attention 
+\newcommand{\atten}[1]{  \begin{bclogo}[couleur = red!25, arrondi = 0.3, ombre = true, epOmbre =0.25, couleurOmbre= lightgray!90, logo=\bcattention, epBarre=3 ]{\textcolor{red!100}{ATTENTION}} #1
+\end{bclogo}}
+%les retenons 
+\newcommand{\ret}[1]{\begin{tcolorbox}[colback=violet!10,colframe=blue!40,title=Retenons]
+		#1 
+\end{tcolorbox}}
+	\newcommand{\dure}{ \underline{Stratégies et Durées:} TI : \dots min TG: \dots min   TC : \dots min \\
+	\ding{36}\dotfill{} \\
+	\hspace*{1cm}	\rule{2cm}{1mm} 
+		\shadowbox{Résolutions}
+		\rule{2cm}{1mm} \\}
+%titre des sequence 
+	\newcommand{\dures}{ \underline{Stratégies et Durées:} TI : \dots min TG: \dots min   TC : \dots min \\
+	\ding{36}\dotfill{} }
+\newcounter{sequen}
+\setcounter{sequen}{0}
+\newcommand{\sequence}[1]{
+	\stepcounter{sequen}{
+		\begin{bclogo}[couleur=cyan!50,arrondi=0.3, ombre = true, epOmbre =0.25,logo=\bcsoleil,epBarre=3.5]{ \LARGE Séquence \no\thesequen : }
+			\Large \textbf{#1}
+\end{bclogo} } }
+	\newcounter{nu}
+\setcounter{nu}{0}
+\newcommand{\seq}{\addtocounter{nu}{0} 
+	\textbf{\fcolorbox{red}{yellow}{{\LARGE Séquence} \no\thenu} \hspace{0.5cm}}}
+%titre de la SA
+\newcounter{situa}
+\setcounter{situa}{0}
+\newcommand{\situ}[1]{
+	\stepcounter{situa}{
+ \begin{bclogo}[couleur=blue!30,arrondi=0.3, ombre = true, epOmbre =0.25,logo=\bcbook,epBarre=3.5]{ \LARGE Situation d'Apprentissage \no\thesitua : }
+ 	\Large \textbf{#1}
+\end{bclogo} } }
+\setlength{\columnsep}{30pt}
+%inclu
+\newcommand{\nincl}{$\subset  $ \hspace*{-0.4cm}/ }
+\newcommand{\reto}{ 
+		 {\Large RETOUR ET PROJECTION} \\
+	\ding{117}	Dis ce que tu as appris ? \\
+	\ding{117} Fait part de tes réussites puis de tes difficultés et la façon dont tu  les  as surmontées.\\
+	\ding{117}	Dis ce en quoi ces résultats peuvent être utiles pour toi dans la vie courante\\
+	\Ovalbox{\textbf{ Durée}:\dots }
+}
+\newcommand{\doc}{\begin{center}
+		\section*{Documents utilisés}
+	\end{center}
+	\ding{117}	Guide et programme de la classe de troisième;\\
+	\ding{117}	Réussir en mathématiques troisième;\\
+	\ding{117} 	CIAM troisième.}	
+\newcommand{\sph}{
+ \begin{tikzpicture}[scale=0.7]
+	\draw[color=red] (0,0) circle (1cm);
+	\draw[dashed, color=red] (1,0) arc (0:180:1cm and 0.5cm);
+	\draw[color=red] (-1,0) arc (180:360:1cm and 0.5cm);
+	\draw[color=red] (0,-1) arc (270:90:0.5cm and 1cm);
+	\draw[dashed, color=red!50] (0,1) arc (270:90:-0.5cm and -1cm);
+\end{tikzpicture}}
+\newcommand{\rect}{
+\begin{tikzpicture}
+	\draw[color=blue] (0,0)rectangle (0.7,0.7);
+	\draw [color=blue] (0.7,0.7)--(1.5,1.5)--(1.5,0.8)--(0.7,0);
+	\draw[color=blue] (1.5,1.5)--(0.8,1.5)--(0,0.7) ;
+\end{tikzpicture}}
+\newcommand{\cone}{
+\begin{tikzpicture}[scale=0.7]
+	\draw[dashed, color=orange] (0,0) arc (0:180:1cm and 0.5cm);
+	\draw[color=orange] (-2,0) arc (0:180:-1cm and -0.5cm);
+	\draw[color=orange](-2,0)--(-1,2)--(0,0);
+\end{tikzpicture}}
+\newcommand{\rapot}{
+		%\draw (0,0) circle (5cm);
+		%	\draw (0,0)--(5:5) node[right, font=\scriptsize] {5};
+		\draw[line width=2pt] (0,0)--(0:5) node[right, font=\scriptsize]  {0};
+		\draw (0,0)--(5:5) node[right, font=\scriptsize] {5} ;
+		\draw (0,0)--(10:5) node[right, font=\scriptsize] {10};
+		\draw (0,0)--(15:5) node[right, font=\scriptsize]{15} ;
+		\draw (0,0)--(20:5) node[right, font=\scriptsize]{20} ;
+		\draw (0,0)--(25:5) node[right, font=\scriptsize]{25} ;
+		\draw (0,0)--(30:5) node[right, font=\scriptsize] {30};
+		\draw (0,0)--(35:5) node[right, font=\scriptsize] {35};
+		\draw (0,0)--(40:5) node[right, font=\scriptsize]{40} ;
+		\draw (0,0)--(45.0:5) node[above right, font=\scriptsize]{45} ;
+		\draw (0,0)--(50:5)node[above right, font=\scriptsize]{50} ;
+		\draw (0,0)--(55.0:5)node[above right, font=\scriptsize]{55} ;
+		\draw (0,0)--(60:5)node[above right, font=\scriptsize] {60};
+		\draw (0,0)--(65.0:5)node[above right, font=\scriptsize] {65};
+		\draw (0,0)--(70:5)node[above right, font=\scriptsize]{70} ;
+		\draw (0,0)--(75.0:5) node[above, font=\scriptsize]{75};
+		\draw (0,0)--(80:5)node[above , font=\scriptsize]{80};
+		\draw (0,0)--(85:5)node[above, font=\scriptsize]{85};
+		\draw[line width=2pt] (0,0)--(90:5)node[above, font=\scriptsize]{90};
+		\draw (0,0)--(175:5) node[left, font=\scriptsize] {175} ;
+		\draw (0,0)--(170:5) node[left, font=\scriptsize] {170};
+		\draw (0,0)--(165:5) node[left, font=\scriptsize]{165} ;
+		\draw (0,0)--(160:5) node[left, font=\scriptsize]{160} ;
+		\draw (0,0)--(155:5) node[left, font=\scriptsize]{155} ;
+		\draw (0,0)--(150:5) node[left, font=\scriptsize] {150};
+		\draw (0,0)--(145:5) node[left, font=\scriptsize] {145};
+		\draw (0,0)--(140:5) node[left, font=\scriptsize]{140} ;
+		\draw (0,0)--(135.0:5) node[above left, font=\scriptsize]{135} ;
+		\draw (0,0)--(130:5)node[above left, font=\scriptsize]{130} ;
+		\draw (0,0)--(125.0:5)node[above left, font=\scriptsize]{125} ;
+		\draw (0,0)--(120:5)node[above left, font=\scriptsize] {120};
+		\draw (0,0)--(115.0:5)node[above left, font=\scriptsize] {115};
+		\draw (0,0)--(110:5)node[above left, font=\scriptsize]{110} ;
+		\draw (0,0)--(105.0:5) node[above, font=\scriptsize]{105};
+		\draw (0,0)--(100:5)node[above , font=\scriptsize]{100};
+		\draw (0,0)--(95:5)node[above, font=\scriptsize]{95};
+		\draw [line width=2pt](0,0)--(180.0:5) node[left, font=\scriptsize] {180};
+		\draw [fill=white](4,0) arc (0:180:4);
+		\draw [](5,0) arc (0:180:5);
+		\draw [line width=2pt] (0,0)--(90:4);
+		\draw [line width=2pt] (0,0) rectangle (0.2,0.2);
+}
+\newcommand{\pavdroi}{ 
+		\draw  (0,0)rectangle (4,2);
+		\draw  (4.7,2.7)--(0.7,2.7);
+		\draw[dashed,] (0,0)--(0.7,0.7);
+		\draw  [color=black] (4,0)--(4.7,0.7) ;
+		\draw  (0,2)--(0.7,2.7);
+		\draw  (4,02)--(4.7,2.7) ;
+		\draw [dashed] (0.7,0.7)--(0.7,2.7);
+		\draw [dashed] (0.7,0.7)--(4.7,0.7);
+		\draw  (0,0)--(0.7,0.7)--(4.7,0.7)--(4,0)--cycle;
+		\draw  (0,2)--(0.7,2.7)--(4.7,2.7)--(4,2)--cycle;
+		\draw  (4.7,0.7)-- (4.7,2.7) ;
+		\draw (0,0)--(4,0);
+}
+\newcommand{\cube}{\begin{tikzpicture}[x={(-0.572cm,-0.416cm)},y={(1cm,0cm)},z={(0cm,1cm)}]
+		\draw  (0,0,0)--(1,0,0)--(1,1,0)--(0,1,0)--cycle;
+		\draw   (0,0,1)--(1,0,1)--(1,1,1)--(0,1,1)--cycle; 
+		\draw (0,0,0)--(0,0,1);
+		\draw (1,0,0)--(1,0,1);
+		\draw (0,1,0)--(0,1,1); 
+		\draw (1,1,0)--(1,1,1) ; 
+		\draw  (1,0,0)--(1,1,0) ;
+		\draw  (1,1,0)--(0,1,0);
+	
+\end{tikzpicture}}
+ \SetWatermarkText{KAYCT}
